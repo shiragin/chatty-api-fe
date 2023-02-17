@@ -31,7 +31,6 @@ function Idea({ idea }: { idea: IIdea }) {
       <Button
         color='secondary'
         onClick={() => {
-          console.log(modalShow);
           setModalShow!({ show: true, content: idea });
         }}
       >

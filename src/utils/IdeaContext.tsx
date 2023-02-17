@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { nanoid } from 'nanoid';
 import { createContext, useContext, useState } from 'react';
 import {
   IIdea,
@@ -20,7 +21,7 @@ export default function IdeaContextProvider({ children }: { children: any }) {
 
   const [modalShow, setModalShow] = useState<IModal>({
     show: false,
-    content: { title: '', tags: '', body: '' },
+    content: { id: '', title: '', tags: '', body: '' },
   });
 
   const [search, setSearch] = useState<ISearch>({
@@ -54,7 +55,6 @@ export default function IdeaContextProvider({ children }: { children: any }) {
       }
     );
     const ideas = response.data.choices;
-    console.log(ideas);
     const newIdeas: IIdea[] = [];
     // eslint-disable-next-line array-callback-return
     ideas.map((idea: any) => {
@@ -68,7 +68,7 @@ export default function IdeaContextProvider({ children }: { children: any }) {
         : ''
     }`;
       const body = idea.text.trim();
-      newIdeas.push({ title, tags, body });
+      newIdeas.push({ id: nanoid(), title, tags, body });
     });
 
     setIdeas(newIdeas);
@@ -76,9 +76,9 @@ export default function IdeaContextProvider({ children }: { children: any }) {
   }
 
   function saveIdeasForLater(newIdea: IIdea) {
-    console.log(newIdea);
-    setSavedIdeas([...savedIdeas, newIdea]);
-    localStorage.setItem('saved-ideas', JSON.stringify(savedIdeas));
+    const newIdeas = [...savedIdeas, newIdea];
+    setSavedIdeas(newIdeas);
+    localStorage.setItem('saved-ideas', JSON.stringify(newIdeas));
   }
 
   return (

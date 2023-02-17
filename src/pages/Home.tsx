@@ -7,8 +7,6 @@ import { useIdeaContext } from '../utils/IdeaContext';
 function Home(): JSX.Element {
   const { isLoading, ideas, showSaved, savedIdeas } = useIdeaContext();
 
-  console.log('loading', isLoading);
-
   return (
     <Container maxWidth='lg' sx={{ width: '100%', margin: '2rem auto' }}>
       <Search />

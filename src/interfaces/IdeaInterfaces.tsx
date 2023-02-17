@@ -25,6 +25,7 @@ export interface ISearch {
 }
 
 export interface IIdea {
+  id: string;
   title: string;
   tags: string;
   body: string;

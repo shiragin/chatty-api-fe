@@ -1,0 +1,42 @@
+export const style = {
+  box: {
+    position: 'absolute' as 'absolute',
+    top: '5%',
+    left: '50%',
+    transform: 'translate(-50%, 0)',
+    width: '70%',
+    bgcolor: 'background.paper',
+    border: '2px solid #ce93d8',
+    boxShadow: 24,
+    p: 5,
+  },
+  icon: {
+    backgroundColor: '#ce93d8',
+    fill: '#333',
+    borderRadius: '50%',
+    position: 'absolute',
+    top: '-2%',
+    right: '-3%',
+    fontSize: '3rem',
+    transition: '0.2s ease-in',
+    cursor: 'pointer',
+    '&:hover': {
+      scale: '1.1',
+    },
+  },
+  tags: {
+    fontSize: '1.1rem',
+    fontWeight: 600,
+    marginTop: '1.6rem',
+    backgroundColor: '#eee',
+    color: '#333',
+    display: 'inline-block',
+    padding: '0.2rem 0.6rem',
+    borderRadius: '0.375rem',
+  },
+  text: {
+    marginTop: '2rem',
+    whiteSpace: 'pre-wrap',
+    fontSize: '1.1rem',
+  },
+};

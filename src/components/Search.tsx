@@ -12,17 +12,26 @@ import {
 import { useIdeaContext } from '../utils/IdeaContext';
 
 function Search(): JSX.Element {
-  const { search, setSearch, searchIdeas, savedIdeas, setShowSaved } =
-    useIdeaContext();
+  const {
+    search,
+    setSearch,
+    searchIdeas,
+    savedIdeas,
+    setShowSaved,
+    showSaved,
+  } = useIdeaContext();
 
   function searchHandler() {
+    setShowSaved!(false);
     const prompt = `I'm writing a story and I don't know how to continue. Right now in my story ${
       search?.prompt
-    }. What should happen next? Make it ${search?.dark} dark, with ${
+    }. 
+    Please give me ideas how to continue the next scene. 
+    Make it ${search?.dark} dark, with ${
       search?.happyEnding
     }, and I also want the following elements: ${search?.tags.join(
       ', '
-    )} to be in the story.`;
+    )} to be in the story. Don't write the entire story, I want just the next scene.`;
     searchIdeas!(prompt);
   }
 
@@ -48,7 +57,7 @@ function Search(): JSX.Element {
         variant='standard'
         color='secondary'
         sx={{ width: '60%', marginBottom: '2rem' }}
-        inputProps={{ style: { fontSize: 20, fontWeight: 300 } }}
+        inputProps={{ style: { fontSize: 18, fontWeight: 300 } }}
         onChange={(e) => {
           if (setSearch) setSearch({ ...search!, prompt: e.target.value });
         }}
@@ -67,7 +76,6 @@ function Search(): JSX.Element {
             width: '100%',
             display: 'flex',
             flexDirection: 'column',
-            // alignItems: 'center',
             justifyContent: 'center',
             gap: '1rem',
           }}
@@ -101,8 +109,7 @@ function Search(): JSX.Element {
             fullWidth
             value={search?.happyEnding}
             onChange={(e) => {
-              if (setSearch)
-                setSearch({ ...search!, happyEnding: e.target.value });
+              setSearch!({ ...search!, happyEnding: e.target.value });
             }}
             label='happy-ending'
           >
@@ -130,14 +137,18 @@ function Search(): JSX.Element {
           options={search!.tags}
           freeSolo
           onChange={(e: React.SyntheticEvent) => {
-            if ((e.target as HTMLInputElement).value && setSearch)
-              setSearch({
+            if ((e.target as HTMLInputElement).value)
+              setSearch!({
                 ...search!,
                 tags: [...search!.tags, (e.target as HTMLInputElement).value],
               });
           }}
           renderInput={(params) => (
-            <TextField {...params} value={search?.tags} />
+            <TextField
+              {...params}
+              value={search?.tags}
+              placeholder='Press enter to add tags'
+            />
           )}
         />
       </div>
@@ -148,16 +159,16 @@ function Search(): JSX.Element {
           onClick={searchHandler}
           size='large'
         >
-          Get ideas
+          Get new ideas
         </Button>
         {savedIdeas?.length ? (
           <Button
             variant='contained'
             color='secondary'
-            onClick={() => setShowSaved!(true)}
+            onClick={() => setShowSaved!(!showSaved)}
             size='large'
           >
-            View saved ideas
+            {showSaved ? 'View latest search' : 'View saved ideas'}
           </Button>
         ) : (
           <></>
