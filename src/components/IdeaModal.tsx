@@ -1,8 +1,8 @@
-import { Backdrop, Box, Fade, Modal, Typography } from '@mui/material';
-// import Icon from '@mui/material/Icon';
-// import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
+import { Backdrop, Box, Button, Fade, Modal, Typography } from '@mui/material';
+import CancelIcon from '@mui/icons-material/Cancel';
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import { useIdeaContext } from '../utils/IdeaContext';
+import { useState } from 'react';
 
 const style = {
   box: {
@@ -24,7 +24,7 @@ const style = {
     top: '-2%',
     right: '-3%',
     fontSize: '3rem',
-    rotate: '45deg',
+    // rotate: '45deg',
     transition: '0.2s ease-in',
     cursor: 'pointer',
     '&:hover': {
@@ -38,6 +38,8 @@ function IdeaModal() {
 
   const { title, tags, body } = modalShow!.content;
 
+  const [save, setSaved] = useState(false);
+
   function closeHandler(e: React.MouseEvent) {
     e.stopPropagation();
     console.log('close');
@@ -46,6 +48,7 @@ function IdeaModal() {
 
   function saveHandler() {
     saveIdeasForLater!({ title, tags, body });
+    setSaved(true);
   }
 
   return (
@@ -62,10 +65,7 @@ function IdeaModal() {
     >
       <Fade in={modalShow!.show}>
         <Box sx={style.box}>
-          <AddCircleRoundedIcon
-            sx={style.icon}
-            onClick={(e) => closeHandler(e)}
-          />
+          <CancelIcon sx={style.icon} onClick={(e) => closeHandler(e)} />
           <Typography variant='h3' color='secondary'>
             {title}
           </Typography>
@@ -93,6 +93,22 @@ function IdeaModal() {
           >
             {body}
           </Typography>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: '2rem',
+            }}
+          >
+            <Button
+              variant='contained'
+              color='secondary'
+              onClick={saveHandler}
+              disabled={save}
+            >
+              {save ? 'Idea Saved' : 'Save Idea'}
+            </Button>
+          </div>
         </Box>
       </Fade>
     </Modal>

@@ -1,4 +1,5 @@
-import { Button, Card, Paper, Typography } from '@mui/material';
+import { Button, Card, Typography } from '@mui/material';
+import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import { IIdea } from '../interfaces/IdeaInterfaces';
 import { useIdeaContext } from '../utils/IdeaContext';
 
@@ -25,6 +26,7 @@ function Idea({ idea }: { idea: IIdea }) {
         sx={{ fontSize: '1.1rem', fontWeight: '300', whiteSpace: 'pre-wrap' }}
       >
         {idea.body.split(' ').slice(0, 30).join(' ')}
+        <DoubleArrowIcon sx={{ fontSize: 20, margin: '0 0 -4px 10px' }} />
       </Typography>
       <Button
         color='secondary'
