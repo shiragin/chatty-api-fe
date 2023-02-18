@@ -41,7 +41,7 @@ function IdeaModal() {
       <Fade in={modalShow!.show}>
         <Box sx={style.box}>
           <CancelIcon sx={style.icon} onClick={(e) => closeHandler(e)} />
-          <Typography variant='h3' color='secondary'>
+          <Typography variant='h4' color='secondary'>
             {title}
           </Typography>
           <Typography variant='h6' sx={style.tags}>

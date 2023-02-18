@@ -14,7 +14,7 @@ function Idea({ idea }: { idea: IIdea }) {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '1.5rem 2rem',
-        width: '350px',
+        // minWidth: '250px',
         minHeight: '250px',
         gap: '2rem',
         backgroundColor: (theme) =>

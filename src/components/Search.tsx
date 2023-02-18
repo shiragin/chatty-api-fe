@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   Autocomplete,
-  Box,
   Button,
+  Grid,
   InputLabel,
   MenuItem,
   Select,
@@ -36,99 +36,75 @@ function Search(): JSX.Element {
   }
 
   return (
-    <Box
+    <Grid
+      container
       display='flex'
       flexDirection='column'
       justifyContent='center'
       alignItems='center'
       minHeight='50vh'
-      gap={2}
+      spacing={2}
     >
-      <Typography variant='h2' align='center' gutterBottom>
-        What should happen next?
-      </Typography>
-      <Typography variant='h5' sx={{ fontWeight: 'light' }} gutterBottom>
-        Enter current scenario
-      </Typography>
-      <TextField
-        placeholder='Describe the scene in your story that has you stumped'
-        multiline
-        maxRows={4}
-        variant='standard'
-        color='secondary'
-        sx={{ width: '60%', marginBottom: '2rem' }}
-        inputProps={{ style: { fontSize: 18, fontWeight: 300 } }}
-        onChange={(e) => {
-          if (setSearch) setSearch({ ...search!, prompt: e.target.value });
-        }}
-      />
-      <div
-        style={{
-          width: '60%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '3rem',
-        }}
-      >
-        <div
-          style={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            gap: '1rem',
+      <Grid item xs={8} sx={{ width: '100%', margin: '0 0 2rem' }}>
+        <Typography variant='h3' align='center' color='secondary'>
+          What should happen next?
+        </Typography>
+      </Grid>
+      <Grid item xs={8} sx={{ width: '100%', margin: '0' }}>
+        <Typography variant='h5' sx={{ fontWeight: 'light' }}>
+          Enter current scene
+        </Typography>
+      </Grid>
+      <Grid item xs={8} sx={{ width: '100%', margin: '0 0 1rem' }}>
+        <TextField
+          fullWidth={true}
+          placeholder='Describe the scene in your story that has you stumped'
+          multiline
+          maxRows={4}
+          variant='standard'
+          color='secondary'
+          inputProps={{ style: { fontSize: 18, fontWeight: 300 } }}
+          onChange={(e) => {
+            if (setSearch) setSearch({ ...search!, prompt: e.target.value });
           }}
-        >
-          <InputLabel sx={{ fontSize: '1.2rem' }}>Make it dark?</InputLabel>
-          <Select
-            fullWidth
-            value={search?.dark}
-            onChange={(e) => {
-              if (setSearch) setSearch({ ...search!, dark: e.target.value });
-            }}
-            label='dark'
-          >
-            <MenuItem value={'not'}>No</MenuItem>
-            <MenuItem value={'just a little'}>Just a tiny bit</MenuItem>
-            <MenuItem value={'very'}>Very</MenuItem>
-          </Select>
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            gap: '1rem',
+        />
+      </Grid>
+      <Grid item xs={8} m={6} sx={{ width: '100%', margin: '1rem 0' }}>
+        <InputLabel sx={{ fontSize: '1.2rem', margin: '0 0 1rem 0' }}>
+          Make it dark?
+        </InputLabel>
+        <Select
+          fullWidth={true}
+          value={search?.dark}
+          onChange={(e) => {
+            if (setSearch) setSearch({ ...search!, dark: e.target.value });
           }}
+          label='dark'
         >
-          <InputLabel sx={{ fontSize: '1.2rem' }}>
-            Want a happy ending?
-          </InputLabel>
-          <Select
-            fullWidth
-            value={search?.happyEnding}
-            onChange={(e) => {
-              setSearch!({ ...search!, happyEnding: e.target.value });
-            }}
-            label='happy-ending'
-          >
-            <MenuItem value={'no happy ending'}>No</MenuItem>
-            <MenuItem value={'a bittersweet ending'}>Somewhat</MenuItem>
-            <MenuItem value={'a happy ending'}>Yes</MenuItem>
-          </Select>
-        </div>
-      </div>
-      <div
-        style={{
-          width: '60%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          gap: '1rem',
-        }}
-      >
-        <InputLabel sx={{ fontSize: '1.2rem', marginTop: '1rem' }}>
+          <MenuItem value={'not'}>No</MenuItem>
+          <MenuItem value={'just a little'}>Just a tiny bit</MenuItem>
+          <MenuItem value={'very'}>Very</MenuItem>
+        </Select>
+      </Grid>
+      <Grid item xs={8} m={6} sx={{ width: '100%', margin: '1rem 0' }}>
+        <InputLabel sx={{ fontSize: '1.2rem', margin: '0 0 1rem 0' }}>
+          Want a happy ending?
+        </InputLabel>
+        <Select
+          fullWidth={true}
+          value={search?.happyEnding}
+          onChange={(e) => {
+            setSearch!({ ...search!, happyEnding: e.target.value });
+          }}
+          label='happy-ending'
+        >
+          <MenuItem value={'no happy ending'}>No</MenuItem>
+          <MenuItem value={'a bittersweet ending'}>Somewhat</MenuItem>
+          <MenuItem value={'a happy ending'}>Yes</MenuItem>
+        </Select>
+      </Grid>
+      <Grid item xs={8} sx={{ width: '100%', margin: '0 0 2rem' }}>
+        <InputLabel sx={{ fontSize: '1.2rem', margin: '1rem 0' }}>
           Anything else?
         </InputLabel>
         <Autocomplete
@@ -151,30 +127,36 @@ function Search(): JSX.Element {
             />
           )}
         />
-      </div>
-      <div style={{ display: 'flex', gap: '2rem', margin: '2rem 0 4rem' }}>
+      </Grid>
+      <Grid item xs={8} m={6} sx={{ width: '100%', margin: '1rem 0 0' }}>
         <Button
+          fullWidth={true}
           variant='contained'
           color='secondary'
           onClick={searchHandler}
           size='large'
+          sx={{ minWidth: '12.9rem' }}
         >
           Get new ideas
         </Button>
+      </Grid>
+      <Grid item xs={8} m={6} sx={{ width: '100%', margin: '1rem 0 3rem 0' }}>
         {savedIdeas?.length ? (
           <Button
+            fullWidth={true}
             variant='contained'
             color='secondary'
             onClick={() => setShowSaved!(!showSaved)}
             size='large'
+            sx={{ minWidth: '12.9rem' }}
           >
             {showSaved ? 'View latest search' : 'View saved ideas'}
           </Button>
         ) : (
           <></>
         )}
-      </div>
-    </Box>
+      </Grid>
+    </Grid>
   );
 }
 

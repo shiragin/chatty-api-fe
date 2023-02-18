@@ -8,22 +8,55 @@ function Home(): JSX.Element {
   const { isLoading, ideas, showSaved, savedIdeas } = useIdeaContext();
 
   return (
-    <Container maxWidth='lg' sx={{ width: '100%', margin: '2rem auto' }}>
+    <Container
+      maxWidth='lg'
+      sx={{ width: '100%', margin: '2rem auto', flexGrow: 1 }}
+    >
       <Search />
       {isLoading && <LinearProgress color='secondary' />}
       {!isLoading && !showSaved && (
-        <Grid container justifyContent='center' spacing={4}>
-          {ideas?.map((idea, index) => (
-            <Grid key={index} item xs={4}>
+        <Grid
+          container
+          justifyContent='center'
+          // xs={10}
+          // sm={12}
+          margin='0 auto'
+          gap={3}
+        >
+          {ideas?.map((idea) => (
+            <Grid
+              item
+              key={idea.id}
+              xs={10}
+              sm={5}
+              md={4}
+              lg={3}
+              sx={{ padding: 0 }}
+            >
               <Idea idea={idea} />
             </Grid>
           ))}
         </Grid>
       )}
       {!isLoading && showSaved && (
-        <Grid container justifyContent='center' spacing={4}>
-          {savedIdeas?.map((idea, index) => (
-            <Grid key={index} item xs={4}>
+        <Grid
+          container
+          justifyContent='center'
+          // xs={10}
+          // sm={12}
+          margin='0 auto'
+          gap={3}
+        >
+          {savedIdeas?.map((idea) => (
+            <Grid
+              item
+              key={idea.id}
+              xs={10}
+              sm={5}
+              md={4}
+              lg={3}
+              sx={{ padding: 0 }}
+            >
               <Idea idea={idea} />
             </Grid>
           ))}
